@@ -2,8 +2,9 @@
 let songArray = [];
 
 // Constructor function for creating Song objects
-let SongObject = function(pID, pTitle, pYear, pGenre, pArtist) {
-    this.ID = pID;
+let SongObject = function(pTitle, pYear, pGenre, pArtist) {
+    // this.ID = pID;
+    this.ID = Math.random().toString(16).slice(5)
     this.Title = pTitle;
     this.Year = pYear;
     this.Genre = pGenre;
@@ -46,6 +47,8 @@ document.addEventListener("DOMContentLoaded", function () {
 // jQuery event listener to populate song details before showing the details page
 $(document).on("pagebeforeshow", "#details", function (event) {
     let localID = localStorage.getItem('parm');
+    let pointer = GetObjectPointer(localID);
+
     songArray = JSON.parse(localStorage.getItem('songArray'));
 
     // Find the song by ID
@@ -63,6 +66,13 @@ $(document).on("pagebeforeshow", "#details", function (event) {
     }
 });
  
+function GetObjectPointer(whichID){
+    for(i=0;i<songArray.length; i++){
+        if(songArray[i].ID = whichID){
+            return i;
+        }
+    }
+}
 
 // Function to create the list of songs
 function createList() {
